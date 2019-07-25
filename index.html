@@ -11,13 +11,40 @@
 </head>
 
 <body>
-    <header class="header">
+    <header class="header-container">
         <h1 class="heading">check <span class="heading__yo">yo'</span> self</h1>
-        <form class="form form--search">
-            <div class="form__div--submit"><img src="images/search.svg" alt="Search icon" class="img img-search"></div>
-            <input type="text" placeholder="Search" name="search" class="form__input form__input--search">
-        </form>
+        <nav class="nav nav--search">
+            <div class="nav__div--submit"><img src="images/search.svg" alt="Search icon" class="img img-search"></div>
+            <input type="text" placeholder="Search" name="search" class="nav__input nav__input--search">
+        </nav>
     </header>
+    <main class="main-container">
+        <aside class="make-task-container">
+            <section class="section section--make-task">
+                <form class="form form--make-task">
+                    <fieldset class="fieldset fieldset--task-title">
+                        <label for="fieldset__input--task-title" class="fieldset__label fieldset__label--task-title">Task
+                            Title</label>
+                        <input type="text" name="title" class="fieldset__input fieldset__input--task-title">
+                    </fieldset>
+                    <fieldset class="form__fieldset form__fieldset--task-item">
+                        <label for="fieldset__input--task-item" class="fieldset__label fieldset__label--task-item">Task
+                            Item</label>
+                        <input type="text" name="title" class="fieldset__input fieldset__input--task-item">
+                        <button type="button" class="button button--add-task">&#xFF0B</button>
+                    </fieldset>
+                    <button type="button" class="button button--make-task">Make Task List</button>
+                    <button type="button" class="button button--clear-all">Clear All</button>
+                </form>
+            </section>
+            <section class="section section--filter">
+                <button type="button" class="button button--filter"></button>
+            </section>
+        </aside>
+        <section class="task-cards-container">
+
+        </section>
+    </main>
 </body>
 
 </html>
