@@ -5,11 +5,21 @@ const aside = document.querySelector('.make-task-container');
 const main = document.querySelector('.task-cards-container');
 
 // Event Listeners
+window.addEventListener('onload', loadHandler);
 header.addEventListener('keyup', headerHandler);
 aside.addEventListener('click', asideHandler);
 main.addEventListener('click', mainHandler);
 
 // Functions
+
+function loadHandler(event) {
+    if (tasks) {
+        reinstantiateTasks();
+        populateTasks();
+    } else {
+        toggleAddTaskMessage();
+    }
+}
 
 function headerHandler(event) {
     if (event.target.classList.contains('nav__input--search')) {
