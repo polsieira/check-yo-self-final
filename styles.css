@@ -1,0 +1,81 @@
+:root {
+    --background-dark-blue: #1F1F3D;
+    --background-teal: #587A8A;
+    --background-light-grey: #F3F6F7;
+    --tasks-background-grey: ;
+    --tasks-border-grey: #C7D3D8;
+    --title-yellow: #FFC30C;
+    --tasks-background-yellow: #FFE89D;
+    --border-yellow: #FFC30C;
+    --orange: #EF4A23;
+    --border-orange: #782616;
+    --urgent-red: #B23A25;
+    --text-green: #3C6577;
+    --disabled-grey: #595959;
+}
+
+*,
+*:before,
+*:after {
+    /*border: 1px solid red;*/
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0px;
+}
+
+
+/*Header*/
+
+.header-container {
+    align-items: center;
+    background-color: var(--background-dark-blue);
+    display: flex;
+    justify-content: space-between;
+}
+
+.heading {
+    color: white;
+    font-size: 30px;
+    font-weight: 800;
+    margin: 10px 0px 10px 10px;
+    text-transform: uppercase;
+}
+
+.heading__yo {
+    color: var(--title-yellow);
+}
+
+.nav {
+    align-items: center;
+    display: flex;
+    height: 40px;
+    justify-content: flex-end;
+    width: 33%;
+}
+
+.nav__div--submit {
+    background-color: var(--background-light-grey);
+    border: none;
+    height: 38px;
+    padding: 8px;
+    width: 38px;
+    /*Find A better way to make this button square*/
+}
+
+.nav__input {
+    border: 1px solid var(--background-dark-blue);
+    font-size: 18px;
+    padding: 5px 10px 5px 10px;
+}
+
+.nav__input--search {
+    border-left: none;
+    border-radius: 0px 2px 2px 0px;
+    font-size: 14px;
+    height: 100%;
+    margin-right: 10px;
+    width: 85%;
+}
