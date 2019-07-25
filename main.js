@@ -13,6 +13,7 @@ main.addEventListener('click', mainHandler);
 // Functions
 
 function loadHandler(event) {
+  event.preventDefault();
   if (tasks) {
     reinstantiateTasks();
     populateTasks();
@@ -34,12 +35,14 @@ function toggleAddTaskMessage() {
 }
 
 function headerHandler(event) {
+  event.preventDefault();
   if (event.target.classList.contains('nav__input--search')) {
 
   }
 }
 
 function asideHandler(event) {
+  event.preventDefault();
   if (event.target.classList.contains('button--add-task')) {
 
   }
@@ -55,5 +58,5 @@ function asideHandler(event) {
 }
 
 function mainHandler(event) {
-
+  event.preventDefault();
 }
