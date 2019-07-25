@@ -62,7 +62,6 @@ body {
     height: 38px;
     padding: 8px;
     width: 38px;
-    /*Find A better way to make this button square*/
 }
 
 .nav__input {
@@ -78,4 +77,108 @@ body {
     height: 100%;
     margin-right: 10px;
     width: 85%;
+}
+
+
+/*Main*/
+
+.main-container {
+    display: flex;
+}
+
+
+/*Make Task Aside*/
+
+.make-task-container {
+    background-color: var(--background-teal);
+    display: flex;
+    flex-direction: column;
+    min-height: 600px;
+    width: 33%;
+}
+
+.section {
+    display: block;
+    width: 100%;
+}
+
+.button {
+    background-color: #1F1F3D;
+    border: 1px solid var(--background-dark-blue);
+    border-radius: 2px;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    height: 36px;
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+
+
+/*Section Make Task*/
+
+.section--make-task {
+    border-bottom: 1px solid var(--background-dark-blue);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    margin: 0px auto 20px auto;
+    width: 90%;
+}
+
+.fieldset {
+    border: 0;
+    margin: 20px 0px 0px 0px;
+    padding: 0;
+}
+
+.fieldset__label {
+    color: white;
+    font-size: 12px;
+    opacity: .85;
+}
+
+.fieldset__input {
+    border-radius: 2px;
+    height: 36px;
+    width: 100%;
+}
+
+.fieldset__input--add-task {
+    width: 87%;
+}
+
+.input-button-wrapper {
+    align-items: center;
+    display: flex;
+}
+
+.button--add-task {
+    margin: 0px;
+}
+
+
+/*Section Filter*/
+
+.section--filter {
+    display: flex;
+    justify-content: center;
+}
+
+.button--filter {
+    width: 90%;
+}
+
+
+/*States*/
+
+button:hover {
+    cursor: pointer;
+}
+
+button:focus {
+    outline: none;
 }

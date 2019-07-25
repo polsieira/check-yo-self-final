@@ -27,18 +27,20 @@
                             Title</label>
                         <input type="text" name="title" class="fieldset__input fieldset__input--task-title">
                     </fieldset>
-                    <fieldset class="form__fieldset form__fieldset--task-item">
+                    <fieldset class="fieldset fieldset--task-item">
                         <label for="fieldset__input--task-item" class="fieldset__label fieldset__label--task-item">Task
                             Item</label>
-                        <input type="text" name="title" class="fieldset__input fieldset__input--task-item">
-                        <button type="button" class="button button--add-task">&#xFF0B</button>
+                        <div class="input-button-wrapper">
+                            <input type="text" name="title" class="fieldset__input fieldset__input--task-item">
+                            <button type="button" class="button button--add-task">&#xFF0B</button>
+                        </div>
                     </fieldset>
                     <button type="button" class="button button--make-task">Make Task List</button>
                     <button type="button" class="button button--clear-all">Clear All</button>
                 </form>
             </section>
             <section class="section section--filter">
-                <button type="button" class="button button--filter"></button>
+                <button type="button" class="button button--filter">Filter by Urgency</button>
             </section>
         </aside>
         <section class="task-cards-container">
