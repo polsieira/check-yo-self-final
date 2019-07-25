@@ -21,6 +21,18 @@ function loadHandler(event) {
     }
 }
 
+function reinstantiateTasks() {
+
+}
+
+function populateTasks() {
+
+}
+
+function toggleAddTaskMessage() {
+
+}
+
 function headerHandler(event) {
     if (event.target.classList.contains('nav__input--search')) {
 
