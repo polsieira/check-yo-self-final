@@ -109,10 +109,9 @@ body {
     color: white;
     font-family: 'Open Sans', sans-serif;
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 400;
     height: 36px;
     margin-top: 20px;
-    text-transform: uppercase;
 }
 
 
@@ -142,13 +141,10 @@ body {
 }
 
 .fieldset__input {
+    border: 1px solid #1F1F3D;
     border-radius: 2px;
     height: 36px;
     width: 100%;
-}
-
-.fieldset__input--add-task {
-    width: 87%;
 }
 
 .input-button-wrapper {
@@ -156,7 +152,16 @@ body {
     display: flex;
 }
 
+.fieldset__input--task-item {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
 .button--add-task {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    font-size: 28px;
+    font-weight: 100;
     margin: 0px;
 }
 
