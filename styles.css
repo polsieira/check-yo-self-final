@@ -166,6 +166,56 @@ body {
     margin: 0px;
 }
 
+.button--add-task:hover {
+    transform: none;
+}
+
+.button--add-task:disabled:hover {
+    cursor: default;
+}
+
+.task {
+    align-items: center;
+    color: white;
+    display: flex;
+    margin-top: 10px;
+}
+
+.image--delete-task {
+    background-color: var(--background-teal);
+    border: none;
+    height: 20px;
+}
+
+.image--delete-task:hover {
+    background-color: var(--background-teal);
+    cursor: pointer;
+    border: none;
+    height: 20px;
+}
+
+.paragraph--task {
+    margin: 0px 0px 0px 5px;
+}
+
+.button--make-task:disabled {
+    opacity: 0.20;
+}
+
+.button--make-task:disabled:hover {
+    cursor: default;
+    transform: none;
+}
+
+.button--clear-all:disabled {
+    opacity: 0.20;
+}
+
+.button--clear-all:disabled:hover {
+    cursor: default;
+    transform: none;
+}
+
 
 /*Section Filter*/
 
@@ -175,6 +225,7 @@ body {
 }
 
 .button--filter {
+    margin-bottom: 20px;
     width: 90%;
 }
 
@@ -187,16 +238,79 @@ body {
     width: 67%;
 }
 
+.article--task-cards {
+    background-color: var(--tasks-background-grey);
+    border: 1px solid var(--tasks-border-grey);
+    display: inline-block;
+    margin: 20px;
+    width: 340px;
+}
+
+.article__heading {
+    border-bottom: 1px solid var(--tasks-border-grey);
+    color: var(--background-dark-blue);
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0px;
+    padding: 15px 7px 15px 7px;
+}
+
+.article__list {
+    border-bottom: 1px solid var(--tasks-border-grey);
+    color: var(--background-dark-blue);
+    font-size: 18px;
+    line-height: 2;
+    list-style-type: none;
+    margin: 0px;
+    padding: 15px 18px 15px 18px;
+}
+
+.list__item {
+    align-items: end;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-unchecked {
+    content: url(images/checkbox.svg);
+    margin-top: 8px;
+    width: 7%;
+}
+
+.item__paragraph {
+    margin: 0px 0px 0px 0px;
+    width: 90%;
+}
+
+.article__form--task-cards {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.form__button--urgent,
+.form__button--delete {
+    align-items: center;
+    background-color: var(--tasks-background-grey);
+    border: none;
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.button-image {
+    height: 20px;
+    margin-bottom: 5px;
+}
+
 
 /*States*/
 
 button:hover {
     cursor: pointer;
     transform: scale(1.02);
-}
-
-.button--add-task:hover {
-    transform: scale(1);
 }
 
 button:focus {
