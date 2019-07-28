@@ -8,7 +8,7 @@ const aside = document.querySelector('.make-task-container');
 const main = document.querySelector('.task-cards-container');
 
 // Event Listeners
-window.addEventListener('onload', loadHandler);
+window.addEventListener('load', loadHandler);
 header.addEventListener('keyup', headerHandler);
 aside.addEventListener('click', asideHandler);
 aside.addEventListener('keyup', asideHandler);
@@ -19,24 +19,27 @@ main.addEventListener('click', mainHandler);
 // On Load Handler
 function loadHandler(event) {
     event.preventDefault();
-    if (tasks) {
-        instantiateTasks();
-        populateTasks();
+    if (todoArray.length > 0) {
+        instantiateAndPopulateTasks();
     } else {
         toggleAddTaskMessage();
     }
 }
 
-function instantiateTasks() {
-
-}
-
-function populateTasks() {
-
+function instantiateAndPopulateTasks() {
+    for (i = 0; i < todoArray.length; i++) {
+        todoArray[i] = new TodoList(todoArray[i]);
+        createCard(todoArray[i]);
+    }
 }
 
 function toggleAddTaskMessage() {
-
+    if (todoArray.length > 0) {
+        document.querySelector('.paragraph--add-task-message').remove();
+        document.querySelector('.image--checklist').remove();
+    } else {
+        addToDom(main, 'afterbegin', `<p class="paragraph--add-task-message">Create a new todo list!</p><img class="image--checklist" src="images/check-list-and-pencil.svg" alt="checklist icon">`);
+    }
 }
 
 // On Header Handler
@@ -59,6 +62,7 @@ function asideHandler(event) {
     }
     if (event.target.classList.contains('button--make-task')) {
         addTaskList();
+        toggleAddTaskMessage();
         clearAll();
     }
     if (event.target.classList.contains('button--clear-all')) {
@@ -100,7 +104,7 @@ function addTask() {
 
 function deleteTask(event) {
     var element = event.target.parentNode;
-    removeFromArray(element)
+    removeFromArray(element, taskItems);
     removeFromDom([element]);
 }
 
@@ -112,27 +116,40 @@ function removeFromDom(elements) {
     elements.forEach(element => element.remove());
 }
 
-function removeFromArray(element) {
-    var removeIndex = taskItems.map(function(item) {
+function removeFromArray(element, array) {
+    var removeIndex = array.map(function(item) {
         return `${item.id}`;
     }).indexOf(element.dataset.id);
-    ~removeIndex && taskItems.splice(removeIndex, 1);
+    ~removeIndex && array.splice(removeIndex, 1);
 }
 
 function addTaskList() {
     const todoList = new TodoList({
         id: Date.now(),
         title: addTitleInput.value,
-        task: taskItems,
+        tasks: taskItems,
     })
-    let tasksHTML = '';
-    taskItems.forEach(task => tasksHTML += `<li class="list__item" data-id=${task.id}><span class="item__checkbox item-unchecked"></span><span class="item__paragraph">${task.text}</span></li>`);
+    saveTaskList(todoList);
+    createCard(todoList);
+}
+
+function saveTaskList(todoList) {
+    todoArray.push(todoList);
+    todoList.saveToStorage(todoArray);
+}
+
+function createCard(todoList) {
+    tasksHTML = makeHTMLForTasks(todoList);
     addToDom(main, 'afterbegin',
         `<article class="article article--task-cards" data-id="${todoList.id}">
         <h2 class="article__heading">${todoList.title}</h2>
         <ul class="article__list">${tasksHTML}</ul>
         <form class="article__form article__form--task-cards">
-          <button class="form__button form__button--urgent"><img class="button-image image--urgent" src="images/urgent.svg" alt="urgency icon">urgent</button>
+          <button class="form__button form__button--urgent"><img class="button-image image--urgent"
+          src="images/urgent.svg"
+          alt="urgency icon"
+          onmouseover="this.src='images/urgent-active.svg'"
+          onmouseout="this.src='images/urgent.svg'">urgent</button>
           <button class="form__button form__button--delete"><img class="button-image image--delete"
           src="images/delete.svg"
           alt="delete icon"
@@ -142,6 +159,11 @@ function addTaskList() {
       </article>`);
 }
 
+function makeHTMLForTasks(todoList) {
+    let tasksHTML = '';
+    todoList.tasks.forEach(task => tasksHTML += `<li class="list__item" data-id=${task.id}><span class="item__checkbox item-unchecked"></span><span class="item__paragraph">${task.text}</span></li>`);
+    return tasksHTML;
+}
 
 function clearAll() {
     clearFields([addTitleInput, addTaskInput]);
@@ -171,10 +193,6 @@ function checkFields(fields) {
 function clearFields(inputs) {
     inputs.forEach(input => input.value = '');
 }
-
-// function determineButtonStatus(button, input) {
-//     input.value.length > 0 ? enableButton(button) : disableButton(button);
-// }
 
 function enableButton(button) {
     button.disabled = false;

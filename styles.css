@@ -238,6 +238,20 @@ body {
     width: 67%;
 }
 
+.paragraph--add-task-message {
+    color: #1F1F3D;
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.image--checklist {
+    display: flex;
+    height: 150px;
+    margin: auto;
+}
+
 .article--task-cards {
     background-color: var(--tasks-background-grey);
     border: 1px solid var(--tasks-border-grey);
@@ -269,6 +283,10 @@ body {
     align-items: end;
     display: flex;
     justify-content: space-between;
+}
+
+.item__checkbox:hover {
+    cursor: pointer;
 }
 
 .item-unchecked {
@@ -303,6 +321,14 @@ body {
 .button-image {
     height: 20px;
     margin-bottom: 5px;
+}
+
+.form__button:hover {
+    color: #B23A25;
+}
+
+.form__button:hover img {
+    src: 'images/urgent-active.svg';
 }
 
 
