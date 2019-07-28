@@ -139,30 +139,45 @@ function saveTaskList(todoList) {
 }
 
 function createCard(todoList) {
-    tasksHTML = makeHTMLForTasks(todoList);
+    let tasksHTML = makeHTMLForTasks(todoList);
+    let classes = determineClasses(todoList);
     addToDom(main, 'afterbegin',
-        `<article class="article article--task-cards" data-id="${todoList.id}">
+        `<article class="article article--task-cards ${classes.urgentCard}" data-id="${todoList.id}">
         <h2 class="article__heading">${todoList.title}</h2>
         <ul class="article__list">${tasksHTML}</ul>
         <form class="article__form article__form--task-cards">
-          <button class="form__button form__button--urgent"><img class="button-image image--urgent"
+          <button class="form__button form__button--urgent ${classes.urgentButton}"
+          onmouseover="onHoverUrgent();"
+          onmouseout="offHoverUrgent();"><img class="button-image image--urgent ${classes.urgentIcon}"
           src="images/urgent.svg"
-          alt="urgency icon"
-          onmouseover="this.src='images/urgent-active.svg'"
-          onmouseout="this.src='images/urgent.svg'">urgent</button>
-          <button class="form__button form__button--delete"><img class="button-image image--delete"
+          alt="urgency icon">urgent</button>
+          <button class="form__button form__button--delete"
+          onmouseover="onHoverDelete();"
+          onmouseout="offHoverDelete();"><img class="button-image image--delete"
           src="images/delete.svg"
-          alt="delete icon"
-          onmouseover="this.src='images/delete-active.svg'"
-          onmouseout="this.src='images/delete.svg'">delete</button>
+          alt="delete icon">delete</button>
         </form>
       </article>`);
 }
 
 function makeHTMLForTasks(todoList) {
     let tasksHTML = '';
-    todoList.tasks.forEach(task => tasksHTML += `<li class="list__item" data-id=${task.id}><span class="item__checkbox item-unchecked"></span><span class="item__paragraph">${task.text}</span></li>`);
+    todoList.tasks.forEach(task => tasksHTML += `<li class="list__item" data-id=${task.id}><span class="item__checkbox item-unchecked"></span><span class="item__paragraph paragraph-unchecked">${task.text}</span></li>`);
     return tasksHTML;
+}
+
+function determineClasses(todoList) {
+    let classes = {}
+    if (todoList.isUrgent) {
+        classes.urgentButton = 'form__button--urgent-active';
+        classes.urgentIcon = 'image--urgent-active';
+        classes.urgentCard = 'article--task-cards-urgent';
+    } else {
+        classes.urgentButton = '';
+        classes.urgentIcon = '';
+        classes.urgentCard = '';
+    }
+    return classes;
 }
 
 function clearAll() {
@@ -178,9 +193,80 @@ function clearTaskArray() {
 // On Main Handler
 function mainHandler(event) {
     event.preventDefault();
+    if (event.target.classList.contains('item__checkbox')) {
+        toggleCheckOffTask(event.target);
+        toggleDeleteButton();
+    }
+    if (event.target.classList.contains('form__button--urgent')) {
+        toggleUrgentIcon();
+        toggleUrgentCard(event.target);
+        let index = locateTodoListIndex(event.target.parentNode.parentNode)
+        todoArray[index].isUrgent = !todoArray[index].isUrgent;
+        todoArray[index].saveToStorage(todoArray);
+    }
+}
+
+function toggleCheckOffTask(checkbox) {
+    console.log(checkbox.nextElementSibling)
+    if (checkbox.classList.contains('item-checked')) {
+        checkbox.classList.remove('item-checked');
+        // checkbox.nextElementSibling.classlist.remove('paragraph-checked');
+    } else {
+        checkbox.classList.add('item-checked');
+        // checkbox.nextElementSibling.classlist.add('paragraph-checked');
+    }
+}
+
+function toggleUrgentIcon() {
+    document.querySelector('.image--urgent').classList.toggle('image--urgent-active');
+    document.querySelector('.form__button--urgent').classList.toggle('form__button--urgent-active');
+
+    // if (document.querySelector('.image--urgent').classList.contains('image--urgent-active')) {
+    //     document.querySelector('.image--urgent').classList.remove('image--urgent-active');
+    //     document.querySelector('.form__button--urgent').classList.remove('form__button--urgent-active');
+    // } else {
+    //     document.querySelector('.image--urgent').classList.add('image--urgent-active');
+    //     document.querySelector('.form__button--urgent').classList.add('form__button--urgent-active');
+    // }
+}
+
+function toggleUrgentCard(button) {
+    button.parentNode.parentNode.classList.toggle('article--task-cards-urgent')
+}
+
+// Hover Function
+function onHoverUrgent() {
+    toggleUrgentIcon();
+}
+
+function offHoverUrgent() {
+    toggleUrgentIcon();
+}
+
+function onHoverDelete() {
+    toggleDelete()
+}
+
+function offHoverDelete() {
+    toggleDelete()
+}
+
+function toggleDelete() {
+    if (document.querySelector('.image--delete').classList.contains('image--delete-active')) {
+        document.querySelector('.image--delete').classList.remove('image--delete-active');
+        document.querySelector('.form__button--delete').classList.remove('form__button--delete-active');
+    } else {
+        document.querySelector('.image--delete').classList.add('image--delete-active');
+        document.querySelector('.form__button--delete').classList.add('form__button--delete-active');
+    }
 }
 
 // Random functions
+function locateTodoListIndex(todoList) {
+    var index = todoArray.findIndex(element => element.id == todoList.dataset.id);
+    return index;
+}
+
 function checkFields(fields) {
     for (let i = 0; i < fields.length; i++) {
         if (fields[i].value === '') {

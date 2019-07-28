@@ -6,12 +6,13 @@ class TodoList {
         this.tasks = obj.tasks || [];
     }
 
-    saveToStorage() {
-
+    saveToStorage(array) {
+        localStorage.setItem('todoArray', JSON.stringify(array));
     }
 
-    deleteFromstorage() {
-
+    deleteFromstorage(array) {
+        array = array.filter(element => element.id !== this.id);
+        localStorage.setItem('todoArray', JSON.stringify(array));
     }
 
     updateToDo() {
