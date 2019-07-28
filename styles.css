@@ -257,7 +257,8 @@ body {
     border: 1px solid var(--tasks-border-grey);
     display: inline-block;
     margin: 20px;
-    width: 340px;
+    min-width: 250px;
+    width: 45%;
 }
 
 .article--task-cards-urgent {

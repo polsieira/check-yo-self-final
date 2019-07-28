@@ -140,7 +140,7 @@ function saveTaskList(todoList) {
 
 function createCard(todoList) {
     let tasksHTML = makeHTMLForTasks(todoList);
-    let classes = determineClasses(todoList);
+    let classes = determineToDoListClasses(todoList);
     addToDom(main, 'afterbegin',
         `<article class="article article--task-cards ${classes.urgentCard}" data-id="${todoList.id}">
         <h2 class="article__heading">${todoList.title}</h2>
@@ -162,11 +162,26 @@ function createCard(todoList) {
 
 function makeHTMLForTasks(todoList) {
     let tasksHTML = '';
-    todoList.tasks.forEach(task => tasksHTML += `<li class="list__item" data-id=${task.id}><span class="item__checkbox item-unchecked"></span><span class="item__paragraph paragraph-unchecked">${task.text}</span></li>`);
+    let classes = determineTaskClasses(todoList);
+    todoList.tasks.forEach(task => tasksHTML += `<li class="list__item" data-id=${task.id}><span class="item__checkbox ${classes.checkedIcon}"></span><span class="item__paragraph ${classes.checkedText}">${task.text}</span></li>`);
     return tasksHTML;
 }
 
-function determineClasses(todoList) {
+function determineTaskClasses(todoList) {
+    classes = {};
+    for (i = 0; i < todoList.tasks; i++) {
+        if (todoList.tasks[i].isCompleted) {
+            classes.checkedIcon = 'item-checked';
+            classes.checkedText = 'paragraph-checked';
+        } else {
+            classes.checkedIcon = '';
+            classes.checkedText = '';
+        }
+    }
+    return classes;
+}
+
+function determineToDoListClasses(todoList) {
     let classes = {}
     if (todoList.isUrgent) {
         classes.urgentButton = 'form__button--urgent-active';
@@ -194,8 +209,10 @@ function clearTaskArray() {
 function mainHandler(event) {
     event.preventDefault();
     if (event.target.classList.contains('item__checkbox')) {
-        toggleCheckOffTask(event.target);
-        toggleDeleteButton();
+        toggleCheckOffTask(event);
+        let index = locateTaskIndex(event.target.parentNode);
+
+        // toggleDeleteButton();
     }
     if (event.target.classList.contains('form__button--urgent')) {
         toggleUrgentIcon();
@@ -206,28 +223,14 @@ function mainHandler(event) {
     }
 }
 
-function toggleCheckOffTask(checkbox) {
-    console.log(checkbox.nextElementSibling)
-    if (checkbox.classList.contains('item-checked')) {
-        checkbox.classList.remove('item-checked');
-        // checkbox.nextElementSibling.classlist.remove('paragraph-checked');
-    } else {
-        checkbox.classList.add('item-checked');
-        // checkbox.nextElementSibling.classlist.add('paragraph-checked');
-    }
+function toggleCheckOffTask(event) {
+    event.target.classList.toggle('item-checked');
+    event.target.nextSibling.classList.toggle('paragraph-checked');
 }
 
 function toggleUrgentIcon() {
     document.querySelector('.image--urgent').classList.toggle('image--urgent-active');
     document.querySelector('.form__button--urgent').classList.toggle('form__button--urgent-active');
-
-    // if (document.querySelector('.image--urgent').classList.contains('image--urgent-active')) {
-    //     document.querySelector('.image--urgent').classList.remove('image--urgent-active');
-    //     document.querySelector('.form__button--urgent').classList.remove('form__button--urgent-active');
-    // } else {
-    //     document.querySelector('.image--urgent').classList.add('image--urgent-active');
-    //     document.querySelector('.form__button--urgent').classList.add('form__button--urgent-active');
-    // }
 }
 
 function toggleUrgentCard(button) {
@@ -262,8 +265,14 @@ function toggleDelete() {
 }
 
 // Random functions
+function locateTaskIndex(task) {
+    let todoList = task.parentNode.parentNode;
+    let index = todoList.tasks.findIndex(element => element.id == task.dataset.id);
+    return index;
+}
+
 function locateTodoListIndex(todoList) {
-    var index = todoArray.findIndex(element => element.id == todoList.dataset.id);
+    let index = todoArray.findIndex(element => element.id == todoList.dataset.id);
     return index;
 }
 
