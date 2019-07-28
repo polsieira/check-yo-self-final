@@ -27,17 +27,17 @@ function loadHandler(event) {
 }
 
 function instantiateAndPopulateTasks() {
-    for (i = 0; i < todoArray.length; i++) {
+    for (let i = 0; i < todoArray.length; i++) {
         todoArray[i] = new TodoList(todoArray[i]);
         createCard(todoArray[i]);
     }
 }
 
 function toggleAddTaskMessage() {
-    if (todoArray.length > 0) {
+    if (todoArray.length === 1) {
         document.querySelector('.paragraph--add-task-message').remove();
         document.querySelector('.image--checklist').remove();
-    } else {
+    } else if (todoArray.length === 0) {
         addToDom(main, 'afterbegin', `<p class="paragraph--add-task-message">Create a new todo list!</p><img class="image--checklist" src="images/check-list-and-pencil.svg" alt="checklist icon">`);
     }
 }
@@ -169,7 +169,7 @@ function makeHTMLForTasks(todoList) {
 
 function determineTaskClasses(todoList) {
     classes = {};
-    for (i = 0; i < todoList.tasks; i++) {
+    for (let i = 0; i < todoList.tasks.length; i++) {
         if (todoList.tasks[i].isCompleted) {
             classes.checkedIcon = 'item-checked';
             classes.checkedText = 'paragraph-checked';
