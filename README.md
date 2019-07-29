@@ -27,11 +27,12 @@
 
 
 ## Screenshots
-
-<img src="" alt="Website screenshot on desktop">
-<img src="" alt="Website on mobile">
-<img src="" alt="Website on mobile with menu open">
-
+<details>
+  <summary>Click to expand images!</summary>
+  <img src="images/desktop.png" alt="Website screenshot on desktop">
+  <img src="images/desktop-filter.png" alt="Website on desktop with urgent filter on">
+  <img src="images/mobile.png" alt="Website on mobile">
+</details>
 
 ## Features
 
