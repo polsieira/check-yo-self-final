@@ -29,9 +29,9 @@
 ## Screenshots
 <details>
   <summary>Click to expand images!</summary>
-  <img src="images/desktop.png" alt="Website screenshot on desktop">
-  <img src="images/desktop-filter.png" alt="Website on desktop with urgent filter on">
-  <img src="images/mobile.png" alt="Website on mobile">
+  <img src="https://github.com/posi7790/check-yo-self-final/blob/master/images/desktop.png" alt="Website screenshot on desktop">
+  <img src="https://github.com/posi7790/check-yo-self-final/blob/master/images/desktop-filter.png" alt="Website on desktop with urgent filter on">
+  <img src="https://github.com/posi7790/check-yo-self-final/blob/master/images/mobile.png" alt="Website on mobile">
 </details>
 
 ## Features
