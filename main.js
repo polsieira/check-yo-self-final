@@ -59,8 +59,11 @@ function searchTodos(event) {
     const todoCard = titles[i].parentNode;
     if (titles[i].innerText.toUpperCase().indexOf(searchInput.toUpperCase()) > -1 && todoCard.dataset.display === 'on') {
       todoCard.style.display = 'inline-block';
+      todoCard.dataset.display === 'on';
     } else {
       todoCard.style.display = 'none';
+      todoCard.dataset.display === 'off';
+
     }
   }
 }
@@ -259,10 +262,10 @@ function toggleTodoListOnDom(event) {
 
 function showUrgent(todoCards) {
   for (let i = todoCards.length - 1; i >= 0; i--) {
-    if (todoCards[i].classList.contains('article--task-cards-urgent')) {
+    if (todoCards[i].classList.contains('article--task-cards-urgent') && todoCards[i].dataset.display === 'on') {
       todoCards[i].style.display = 'inline-block';
       todoCards[i].dataset.display = 'on';
-    } else {
+    } else if (!todoCards[i].classList.contains('article--task-cards-urgent') && todoCards[i].dataset.display === 'on') {
       todoCards[i].style.display = 'none';
       todoCards[i].dataset.display = 'off';
     }
@@ -272,6 +275,7 @@ function showUrgent(todoCards) {
 function showAll(todoCards) {
   for (let i = todoCards.length - 1; i >= 0; i--) {
     todoCards[i].style.display = 'inline-block';
+    todoCards[i].dataset.display = 'on';
   }
 }
 
