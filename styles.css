@@ -236,6 +236,12 @@ body {
   width: 67%;
 }
 
+.add-task-message,
+.add-urgent-message {
+  left: 530px;
+  position: absolute;
+}
+
 .paragraph--add-task-message,
 .paragraph--add-urgent-message {
   color: #1F1F3D;
