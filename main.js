@@ -255,7 +255,7 @@ function showAll(todoCards) {
 }
 
 function toggleUrgentMessage(todoCards) {
-    if (document.querySelectorAll('.article--task-cards-urgent').length === 0 && !document.querySelector('.paragraph--add-urgent-message')) {
+    if (document.querySelectorAll('.article--task-cards-urgent').length === 0 && !document.querySelector('.paragraph--add-urgent-message') && !document.querySelector('.paragraph--add-task-message')) {
         addToDom(main, 'afterbegin', `<p class="paragraph--add-urgent-message">Make a todo list Urgent!</p><img class="image--urgent-message" src="images/file-urgent.svg" alt="urgent icon">`)
     } else if (document.querySelector('.paragraph--add-urgent-message')) {
         removeFromDom([document.querySelector('.paragraph--add-urgent-message'), document.querySelector('.image--urgent-message')])
