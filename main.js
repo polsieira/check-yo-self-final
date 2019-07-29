@@ -162,22 +162,23 @@ function createCard(todoList) {
 
 function makeHTMLForTasks(todoList) {
     let tasksHTML = '';
-    let classes = determineTaskClasses(todoList);
-    todoList.tasks.forEach(task => tasksHTML += `<li class="list__item" data-id=${task.id}><span class="item__checkbox ${classes.checkedIcon}"></span><span class="item__paragraph ${classes.checkedText}">${task.text}</span></li>`);
+    for (i = 0; i < todoList.tasks.length; i++) {
+        let classes = determineTaskClasses(todoList.tasks[i]);
+        tasksHTML += `<li class="list__item" data-id=${todoList.tasks[i].id}><span class="item__checkbox ${classes.checkedIcon}"></span><span class="item__paragraph ${classes.checkedText}">${todoList.tasks[i].text}</span></li>`;
+    }
     return tasksHTML;
 }
 
-function determineTaskClasses(todoList) {
+function determineTaskClasses(task) {
     classes = {};
-    for (let i = 0; i < todoList.tasks.length; i++) {
-        if (todoList.tasks[i].isCompleted) {
-            classes.checkedIcon = 'item-checked';
-            classes.checkedText = 'paragraph-checked';
-        } else {
-            classes.checkedIcon = '';
-            classes.checkedText = '';
-        }
+    if (task.isCompleted) {
+        classes.checkedIcon = 'item-checked';
+        classes.checkedText = 'paragraph-checked';
+    } else {
+        classes.checkedIcon = '';
+        classes.checkedText = '';
     }
+
     return classes;
 }
 
@@ -211,7 +212,8 @@ function mainHandler(event) {
     if (event.target.classList.contains('item__checkbox')) {
         toggleCheckOffTask(event);
         let index = locateTaskIndex(event.target.parentNode);
-
+        todoArray[index[0]].tasks[index[1]].isCompleted = !todoArray[index[0]].tasks[index[1]].isCompleted;
+        todoArray[index[0]].saveToStorage(todoArray);
         // toggleDeleteButton();
     }
     if (event.target.classList.contains('form__button--urgent')) {
@@ -267,8 +269,9 @@ function toggleDelete() {
 // Random functions
 function locateTaskIndex(task) {
     let todoList = task.parentNode.parentNode;
-    let index = todoList.tasks.findIndex(element => element.id == task.dataset.id);
-    return index;
+    let todoListIndex = locateTodoListIndex(todoList)
+    let taskIndex = todoArray[todoListIndex].tasks.findIndex(element => element.id == task.dataset.id);
+    return [todoListIndex, taskIndex];
 }
 
 function locateTodoListIndex(todoList) {
