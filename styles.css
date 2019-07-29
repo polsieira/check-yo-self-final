@@ -167,10 +167,6 @@ body {
   transform: none;
 }
 
-.button--add-task:disabled:hover {
-  cursor: default;
-}
-
 .task {
   align-items: center;
   color: white;
@@ -199,13 +195,6 @@ body {
 .button--clear-all:disabled,
 .button--filter:disabled {
   opacity: 0.20;
-}
-
-.button--make-task:disabled:hover,
-.button--clear-all:disabled:hover,
-.button--filter:disabled:hover {
-  cursor: default;
-  transform: none;
 }
 
 .button--filter-active {
@@ -263,6 +252,7 @@ body {
   break-inside: avoid;
   border: 1px solid var(--tasks-border-grey);
   display: inline-block;
+  margin-bottom: 20px;
   margin-top: 20px;
   min-width: 250px;
   width: 84%;
@@ -326,6 +316,7 @@ body {
 .paragraph-checked {
   color: #3C6577;
   font-style: italic;
+  text-decoration: line-through;
 }
 
 .article__form--task-cards {
@@ -361,12 +352,17 @@ body {
   z-index: 1;
 }
 
+.image--delete {
+  opacity: 0.20;
+}
+
 .image--urgent-active {
   content: url('images/urgent-active.svg');
 }
 
 .image--delete-active {
   content: url('images/delete-active.svg');
+  opacity: 1;
 }
 
 /*States*/
@@ -374,6 +370,11 @@ body {
 button:hover {
   cursor: pointer;
   transform: scale(1.02);
+}
+
+button:disabled:hover {
+  cursor: default;
+  transform: none;
 }
 
 button:focus {

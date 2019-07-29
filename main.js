@@ -59,8 +59,11 @@ function searchTodos(event) {
     const todoCard = titles[i].parentNode;
     if (titles[i].innerText.toUpperCase().indexOf(searchInput.toUpperCase()) > -1 && todoCard.dataset.display === 'on') {
       todoCard.style.display = 'inline-block';
+      todoCard.dataset.display === 'on';
     } else {
       todoCard.style.display = 'none';
+      todoCard.dataset.display === 'off';
+
     }
   }
 }
@@ -136,6 +139,12 @@ function removeFromDom(elements) {
   elements.forEach(element => element.remove());
 }
 
+function removeFromLocalStorage(element, array) {
+  const removeIndex = array.map(item => `${item.id}`).indexOf(element.dataset.id);
+  array[removeIndex].deleteFromStorage(array);
+  ~removeIndex && array.splice(removeIndex, 1);
+}
+
 function removeFromArray(element, array) {
   const removeIndex = array.map(item => `${item.id}`).indexOf(element.dataset.id);
   ~removeIndex && array.splice(removeIndex, 1);
@@ -169,9 +178,7 @@ function createCard(todoList) {
           onmouseout="toggleUrgentIcon(this);"><img class="button-image image--urgent ${classes.urgentIcon}"
           src="images/urgent.svg"
           alt="urgency icon">urgent</button>
-          <button class="form__button form__button--delete"
-          onmouseover="toggleDelete(this);"
-          onmouseout="toggleDelete(this);"><img class="button-image image--delete"
+          <button ${classes.deleteDisable} class="form__button form__button--delete ${classes.deleteButton}"><img class="button-image image--delete ${classes.deleteIcon}"
           src="images/delete.svg"
           alt="delete icon">delete</button>
         </form>
@@ -182,7 +189,7 @@ function makeHTMLForTasks(todoList) {
   let tasksHTML = '';
   for (i = 0; i < todoList.tasks.length; i++) {
     const classes = determineTaskClasses(todoList.tasks[i]);
-    tasksHTML += `<li class="list__item" data-id=${todoList.tasks[i].id}><span class="item__checkbox ${classes.checkedIcon}"></span><span class="item__paragraph ${classes.checkedText}">${todoList.tasks[i].text}</span></li>`;
+    tasksHTML += `<li class="list__item" data-id=${todoList.tasks[i].id} data-completed=${todoList.tasks[i].isCompleted}><span class="item__checkbox ${classes.checkedIcon}"></span><span class="item__paragraph ${classes.checkedText}">${todoList.tasks[i].text}</span></li>`;
   }
   return tasksHTML;
 }
@@ -209,6 +216,17 @@ function determineToDoListClasses(todoList) {
     classes.urgentButton = '';
     classes.urgentIcon = '';
     classes.urgentCard = '';
+  }
+  for (let i = 0; i < todoList.tasks.length; i++) {
+    classes.deleteButton = 'form__button--delete-active';
+    classes.deleteIcon = 'image--delete-active';
+    classes.deleteDisable = ''
+    if (todoList.tasks[i].isCompleted === false) {
+      classes.deleteButton = '';
+      classes.deleteIcon = '';
+      classes.deleteDisable = 'disabled'
+      return classes;
+    }
   }
   return classes;
 }
@@ -244,10 +262,10 @@ function toggleTodoListOnDom(event) {
 
 function showUrgent(todoCards) {
   for (let i = todoCards.length - 1; i >= 0; i--) {
-    if (todoCards[i].classList.contains('article--task-cards-urgent')) {
+    if (todoCards[i].classList.contains('article--task-cards-urgent') && todoCards[i].dataset.display === 'on') {
       todoCards[i].style.display = 'inline-block';
       todoCards[i].dataset.display = 'on';
-    } else {
+    } else if (!todoCards[i].classList.contains('article--task-cards-urgent') && todoCards[i].dataset.display === 'on') {
       todoCards[i].style.display = 'none';
       todoCards[i].dataset.display = 'off';
     }
@@ -257,6 +275,7 @@ function showUrgent(todoCards) {
 function showAll(todoCards) {
   for (let i = todoCards.length - 1; i >= 0; i--) {
     todoCards[i].style.display = 'inline-block';
+    todoCards[i].dataset.display = 'on';
   }
 }
 
@@ -276,6 +295,7 @@ function mainHandler(event) {
     const index = locateTaskIndex(event.target.parentNode);
     todoArray[index[0]].tasks[index[1]].isCompleted = !todoArray[index[0]].tasks[index[1]].isCompleted;
     todoArray[index[0]].saveToStorage(todoArray); // Refactor
+    toggleDelete(event.target.parentNode.parentNode.nextElementSibling[1], Array.from(event.target.parentNode.parentNode.children));
   }
   if (event.target.classList.contains('form__button--urgent')) {
     toggleUrgentIcon(event.target);
@@ -284,11 +304,17 @@ function mainHandler(event) {
     todoArray[index].isUrgent = !todoArray[index].isUrgent;
     todoArray[index].saveToStorage(todoArray); // Refactor
   }
+  if (event.target.classList.contains('form__button--delete-active')) {
+    removeFromDom([event.target.parentNode.parentNode]);
+    removeFromLocalStorage(event.target.parentNode.parentNode, todoArray)
+  }
 }
 
 function toggleCheckOffTask(event) {
   event.target.classList.toggle('item-checked');
   event.target.nextSibling.classList.toggle('paragraph-checked');
+  event.target.parentNode.dataset.completed === 'true' ? event.target.parentNode.dataset.completed = 'false' :
+    event.target.parentNode.dataset.completed = 'true';
 }
 
 function toggleUrgentIcon(element) {
@@ -300,10 +326,25 @@ function toggleUrgentCard(button) {
   button.parentNode.parentNode.classList.toggle('article--task-cards-urgent');
 }
 
-// Hover Function
-function toggleDelete(element) {
-  element.firstChild.classList.toggle('image--delete-active');
-  element.classList.toggle('form__button--delete-active');
+function toggleDelete(deleteButton, todoTasks) {
+  if (determineDelete(todoTasks)) {
+    deleteButton.firstChild.classList.add('image--delete-active');
+    deleteButton.classList.add('form__button--delete-active');
+    enableButton(deleteButton);
+  } else {
+    deleteButton.firstChild.classList.remove('image--delete-active');
+    deleteButton.classList.remove('form__button--delete-active');
+    disableButton(deleteButton);
+  }
+}
+
+function determineDelete(todoTasks) {
+  for (let i = todoTasks.length - 1; i >= 0; i--) {
+    if (todoTasks[i].dataset.completed === 'false') {
+      return false;
+    }
+  }
+  return true;
 }
 
 // Random functions
