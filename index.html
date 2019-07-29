@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Check Yo Self</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
@@ -9,9 +8,44 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
 <body>
-
+    <header class="header-container">
+        <h1 class="heading">check <span class="heading__yo">yo'</span> self</h1>
+        <nav class="nav nav--search">
+            <div class="nav__div--submit"><img src="images/search.svg" alt="Search icon" class="img img-search"></div>
+            <input type="text" placeholder="Search" name="search" class="nav__input nav__input--search">
+        </nav>
+    </header>
+    <main class="main-container">
+        <aside class="make-task-container">
+            <section class="section section--make-task">
+                <form class="form form--make-task">
+                    <fieldset class="fieldset fieldset--task-title">
+                        <label for="fieldset__input--task-title" class="fieldset__label fieldset__label--task-title">Task
+                            Title</label>
+                        <input type="text" name="title" class="fieldset__input fieldset__input--task-title">
+                    </fieldset>
+                    <fieldset class="fieldset fieldset--task-item">
+                        <label for="fieldset__input--task-item" class="fieldset__label fieldset__label--task-item">Task
+                            Item</label>
+                        <div class="input-button-wrapper">
+                            <input type="text" name="title" class="fieldset__input fieldset__input--task-item">
+                            <button disabled type="button" class="button button--add-task">&#xFF0B</button>
+                        </div>
+                    </fieldset>
+                    <button disabled type="button" class="button button--make-task">Make Task List</button>
+                    <button disabled type="button" class="button button--clear-all">Clear All</button>
+                </form>
+            </section>
+            <section class="section section--filter">
+                <button type="button" class="button button--filter">Filter by Urgency</button>
+            </section>
+        </aside>
+        <main class="task-cards-container">
+        </main>
+    </main>
 </body>
-
+<script type="text/javascript" src="task.js"></script>
+<script type="text/javascript" src="todo-list.js"></script>
+<script type="text/javascript" src="main.js"></script>
 </html>
