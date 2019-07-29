@@ -10,7 +10,7 @@ class TodoList {
     localStorage.setItem('todoArray', JSON.stringify(array));
   }
 
-  deleteFromstorage(array) {
+  deleteFromStorage(array) {
     array = array.filter(element => element.id !== this.id);
     localStorage.setItem('todoArray', JSON.stringify(array));
   }

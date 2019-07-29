@@ -167,10 +167,6 @@ body {
   transform: none;
 }
 
-.button--add-task:disabled:hover {
-  cursor: default;
-}
-
 .task {
   align-items: center;
   color: white;
@@ -199,13 +195,6 @@ body {
 .button--clear-all:disabled,
 .button--filter:disabled {
   opacity: 0.20;
-}
-
-.button--make-task:disabled:hover,
-.button--clear-all:disabled:hover,
-.button--filter:disabled:hover {
-  cursor: default;
-  transform: none;
 }
 
 .button--filter-active {
@@ -363,12 +352,17 @@ body {
   z-index: 1;
 }
 
+.image--delete {
+  opacity: 0.20;
+}
+
 .image--urgent-active {
   content: url('images/urgent-active.svg');
 }
 
 .image--delete-active {
   content: url('images/delete-active.svg');
+  opacity: 1;
 }
 
 /*States*/
@@ -376,6 +370,11 @@ body {
 button:hover {
   cursor: pointer;
   transform: scale(1.02);
+}
+
+button:disabled:hover {
+  cursor: default;
+  transform: none;
 }
 
 button:focus {
