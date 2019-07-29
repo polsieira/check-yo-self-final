@@ -26,6 +26,7 @@ body {
   margin: 0px;
   min-width: 320px;
 }
+
 /*Header*/
 
 .header-container {
@@ -77,11 +78,13 @@ body {
   margin-right: 10px;
   width: 85%;
 }
+
 /*Main Container*/
 
 .main-container {
   display: flex;
 }
+
 /*Make Task Aside*/
 
 .make-task-container {
@@ -109,6 +112,7 @@ body {
   height: 36px;
   margin-top: 20px;
 }
+
 /*Section Make Task*/
 
 .section--make-task {
@@ -207,6 +211,7 @@ body {
 .button--filter-active {
   background-color: #EF4A23;
 }
+
 /*Section Filter*/
 
 .section--filter {
@@ -218,15 +223,16 @@ body {
   margin-bottom: 20px;
   width: 90%;
 }
+
 /*Task Cards Container*/
 
 .task-cards-container {
   background-color: #F3F6F7;
   column-count: 2;
-  column-gap: 20px;
+  column-width: 15em;
   min-height: 686px;
-  padding-bottom: 20px;
-  padding-left: 57px;
+  padding: 15px;
+  padding-left: 80px;
   width: 67%;
 }
 
@@ -248,8 +254,6 @@ body {
 
 .article--task-cards {
   background-color: var(--tasks-background-grey);
-  -webkit-column-break-inside: avoid;
-  page-break-inside: avoid;
   break-inside: avoid;
   border: 1px solid var(--tasks-border-grey);
   display: inline-block;
@@ -358,6 +362,7 @@ body {
 .image--delete-active {
   content: url('images/delete-active.svg');
 }
+
 /*States*/
 
 button:hover {
@@ -368,71 +373,76 @@ button:hover {
 button:focus {
   outline: none;
 }
+
 /*Media Queries*/
 
 @media only screen and (max-width: 500px) {
   .header-container {
-      display: flex;
-      flex-direction: column;
+    display: flex;
+    flex-direction: column;
   }
 
   .heading {
-      margin: 15px auto 20px auto;
+    margin: 15px auto 20px auto;
   }
 
   .nav {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-      width: 98%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 98%;
   }
 
   .nav__div--submit {
-      height: 48px;
-      margin-bottom: 15px;
+    height: 48px;
+    margin-bottom: 15px;
   }
 
   .img-search {
-      margin-top: 5px;
+    margin-top: 5px;
   }
 
   .nav__input--search {
-      height: 50px;
-      margin: 0px 0px 15px 0px;
+    height: 50px;
+    margin: 0px 0px 15px 0px;
   }
 
   .main-container {
-      display: block;
+    display: block;
   }
 
   .make-task-container {
-      min-height: 400px;
-      width: 100%;
+    min-height: 400px;
+    width: 100%;
   }
 
   .task-cards-container {
-      min-height: 400px;
-      width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+    padding: 0px;
+    width: 100%;
   }
 
   .article--task-cards {
-      width: 90%;
+    width: 90%;
   }
 
   .fieldset__input {
-      height: 50px;
+    height: 50px;
   }
 
   .button--add-task,
   .button--make-task,
   .button--clear-all,
   .button--filter {
-      height: 50px;
+    height: 50px;
   }
-  
+
   .paragraph--add-task-message,
   .paragraph--add-urgent-message {
-      margin-top: 0px;
-      padding-top: 30px;
+    margin-top: 0px;
+    padding-top: 30px;
   }
 }
