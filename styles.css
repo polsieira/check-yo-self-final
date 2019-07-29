@@ -263,6 +263,7 @@ body {
   break-inside: avoid;
   border: 1px solid var(--tasks-border-grey);
   display: inline-block;
+  margin-bottom: 20px;
   margin-top: 20px;
   min-width: 250px;
   width: 84%;
@@ -326,6 +327,7 @@ body {
 .paragraph-checked {
   color: #3C6577;
   font-style: italic;
+  text-decoration: line-through;
 }
 
 .article__form--task-cards {
