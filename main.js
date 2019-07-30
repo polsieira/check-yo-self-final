@@ -1,6 +1,3 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-undef */
 // Global Variables
 const todoArray = JSON.parse(localStorage.getItem('todoArray')) || [];
 let taskItems = [];
@@ -19,7 +16,6 @@ main.addEventListener('click', mainHandler);
 
 // Functions
 
-// On Load Handler
 function loadHandler(event) {
   event.preventDefault();
   if (todoArray.length > 0) {
@@ -44,7 +40,6 @@ function toggleAddTaskMessage() {
   }
 }
 
-// On Header Handler
 function headerHandler(event) {
   event.preventDefault();
   if (event.target.classList.contains('nav__input--search')) {
@@ -68,7 +63,6 @@ function searchTodos(target) {
   }
 }
 
-// On Aside Handler
 function asideHandler(event) {
   event.preventDefault();
   if (event.target.classList.contains('button--add-task')) {
@@ -288,7 +282,6 @@ function toggleUrgentMessage() {
   }
 }
 
-// On Main Handler
 function mainHandler(event) {
   event.preventDefault();
   if (event.target.classList.contains('item__checkbox')) {
@@ -319,6 +312,7 @@ function toggleCheckOffTask(event) {
 }
 
 function toggleUrgentIcon(element) {
+  console.log(event)
   element.firstChild.classList.toggle('image--urgent-active');
   element.classList.toggle('form__button--urgent-active');
 }
@@ -348,7 +342,6 @@ function determineDelete(todoTasks) {
   return true;
 }
 
-// Random functions
 function locateTaskIndex(task) {
   const todoList = task.parentNode.parentNode;
   const todoListIndex = locateTodoListIndex(todoList);
