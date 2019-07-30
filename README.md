@@ -40,7 +40,7 @@
 - [x] View list of todos
 - [x] Check off tasks
 - [x] Make ToDo card urgent
-- [ ] Delete existing ToDo card
+- [x] Delete existing ToDo card
 - [x] Filter and search through titles by text
 - [x] Viewing urgent ToDo cards
 - [ ] Editing tasks
