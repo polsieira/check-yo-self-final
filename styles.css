@@ -17,7 +17,6 @@
 *,
 *:before,
 *:after {
-  /*border: 1px solid red;*/
   box-sizing: border-box;
 }
 
@@ -111,6 +110,10 @@ body {
   font-weight: 400;
   height: 36px;
   margin-top: 20px;
+}
+
+button>* {
+  pointer-events: none;
 }
 
 /*Section Make Task*/
@@ -265,6 +268,10 @@ body {
 .article--task-cards-urgent {
   background-color: #FFE89D;
   border: 1px solid #FFC30C;
+}
+
+.article--task-cards-urgent-border {
+  border-bottom: 1px solid #FFC30C !important;
 }
 
 .article__heading {

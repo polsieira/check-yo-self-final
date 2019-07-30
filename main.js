@@ -1,6 +1,3 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-undef */
 // Global Variables
 const todoArray = JSON.parse(localStorage.getItem('todoArray')) || [];
 let taskItems = [];
@@ -19,7 +16,6 @@ main.addEventListener('click', mainHandler);
 
 // Functions
 
-// On Load Handler
 function loadHandler(event) {
   event.preventDefault();
   if (todoArray.length > 0) {
@@ -44,16 +40,15 @@ function toggleAddTaskMessage() {
   }
 }
 
-// On Header Handler
 function headerHandler(event) {
   event.preventDefault();
   if (event.target.classList.contains('nav__input--search')) {
-    searchTodos(event);
+    searchTodos(event.target);
   }
 }
 
-function searchTodos(event) {
-  const searchInput = event.target.value;
+function searchTodos(target) {
+  const searchInput = target.value;
   const titles = document.querySelectorAll('.article__heading');
   for (let i = titles.length - 1; i >= 0; i--) {
     const todoCard = titles[i].parentNode;
@@ -68,7 +63,6 @@ function searchTodos(event) {
   }
 }
 
-// On Aside Handler
 function asideHandler(event) {
   event.preventDefault();
   if (event.target.classList.contains('button--add-task')) {
@@ -88,6 +82,7 @@ function asideHandler(event) {
   }
   if (event.target.classList.contains('button--filter')) {
     toggleFilterByUrgency(event);
+    searchTodos(document.querySelector('.nav__input--search'));
   }
   if (taskItems.length > 0 && checkFields([addTitleInput])) {
     enableButton(document.querySelector('.button--make-task'));
@@ -170,8 +165,8 @@ function createCard(todoList) {
   const classes = determineToDoListClasses(todoList);
   addToDom(main, 'afterbegin',
     `<article class="article article--task-cards ${classes.urgentCard}" data-id="${todoList.id}" data-display="on">
-        <h2 class="article__heading">${todoList.title}</h2>
-        <ul class="article__list">${tasksHTML}</ul>
+        <h2 class="article__heading ${classes.urgentCardBorder}">${todoList.title}</h2>
+        <ul class="article__list ${classes.urgentCardBorder}">${tasksHTML}</ul>
         <form class="article__form article__form--task-cards">
           <button class="form__button form__button--urgent ${classes.urgentButton}"
           onmouseover="toggleUrgentIcon(this);"
@@ -212,6 +207,7 @@ function determineToDoListClasses(todoList) {
     classes.urgentButton = 'form__button--urgent-active';
     classes.urgentIcon = 'image--urgent-active';
     classes.urgentCard = 'article--task-cards-urgent';
+    classes.urgentCardBorder = 'article--task-cards-urgent-border'
   } else {
     classes.urgentButton = '';
     classes.urgentIcon = '';
@@ -287,7 +283,6 @@ function toggleUrgentMessage() {
   }
 }
 
-// On Main Handler
 function mainHandler(event) {
   event.preventDefault();
   if (event.target.classList.contains('item__checkbox')) {
@@ -324,6 +319,8 @@ function toggleUrgentIcon(element) {
 
 function toggleUrgentCard(button) {
   button.parentNode.parentNode.classList.toggle('article--task-cards-urgent');
+  button.parentNode.previousElementSibling.classList.toggle('article--task-cards-urgent-border')
+  button.parentNode.previousElementSibling.previousElementSibling.classList.toggle('article--task-cards-urgent-border')
 }
 
 function toggleDelete(deleteButton, todoTasks) {
@@ -347,7 +344,6 @@ function determineDelete(todoTasks) {
   return true;
 }
 
-// Random functions
 function locateTaskIndex(task) {
   const todoList = task.parentNode.parentNode;
   const todoListIndex = locateTodoListIndex(todoList);
