@@ -48,12 +48,12 @@ function toggleAddTaskMessage() {
 function headerHandler(event) {
   event.preventDefault();
   if (event.target.classList.contains('nav__input--search')) {
-    searchTodos(event);
+    searchTodos(event.target);
   }
 }
 
-function searchTodos(event) {
-  const searchInput = event.target.value;
+function searchTodos(target) {
+  const searchInput = target.value;
   const titles = document.querySelectorAll('.article__heading');
   for (let i = titles.length - 1; i >= 0; i--) {
     const todoCard = titles[i].parentNode;
@@ -88,6 +88,7 @@ function asideHandler(event) {
   }
   if (event.target.classList.contains('button--filter')) {
     toggleFilterByUrgency(event);
+    searchTodos(document.querySelector('.nav__input--search'));
   }
   if (taskItems.length > 0 && checkFields([addTitleInput])) {
     enableButton(document.querySelector('.button--make-task'));
