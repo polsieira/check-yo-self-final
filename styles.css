@@ -220,7 +220,7 @@ button>* {
 
 .task-cards-container {
   background-color: #F3F6F7;
-  column-count: 2;
+  column-count: 3;
   column-width: 15em;
   min-height: 686px;
   padding: 15px;
@@ -230,8 +230,7 @@ button>* {
 
 .add-task-message,
 .add-urgent-message {
-  left: 530px;
-  position: absolute;
+  display: inline-block;
 }
 
 .paragraph--add-task-message,
