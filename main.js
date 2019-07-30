@@ -301,7 +301,8 @@ function mainHandler(event) {
   }
   if (event.target.classList.contains('form__button--delete-active')) {
     removeFromDom([event.target.parentNode.parentNode]);
-    removeFromLocalStorage(event.target.parentNode.parentNode, todoArray)
+    removeFromLocalStorage(event.target.parentNode.parentNode, todoArray);
+    toggleAddTaskMessage();
   }
 }
 
