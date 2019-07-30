@@ -165,8 +165,8 @@ function createCard(todoList) {
   const classes = determineToDoListClasses(todoList);
   addToDom(main, 'afterbegin',
     `<article class="article article--task-cards ${classes.urgentCard}" data-id="${todoList.id}" data-display="on">
-        <h2 class="article__heading">${todoList.title}</h2>
-        <ul class="article__list">${tasksHTML}</ul>
+        <h2 class="article__heading ${classes.urgentCardBorder}">${todoList.title}</h2>
+        <ul class="article__list ${classes.urgentCardBorder}">${tasksHTML}</ul>
         <form class="article__form article__form--task-cards">
           <button class="form__button form__button--urgent ${classes.urgentButton}"
           onmouseover="toggleUrgentIcon(this);"
@@ -207,6 +207,7 @@ function determineToDoListClasses(todoList) {
     classes.urgentButton = 'form__button--urgent-active';
     classes.urgentIcon = 'image--urgent-active';
     classes.urgentCard = 'article--task-cards-urgent';
+    classes.urgentCardBorder = 'article--task-cards-urgent-border'
   } else {
     classes.urgentButton = '';
     classes.urgentIcon = '';
@@ -312,13 +313,14 @@ function toggleCheckOffTask(event) {
 }
 
 function toggleUrgentIcon(element) {
-  console.log(event)
   element.firstChild.classList.toggle('image--urgent-active');
   element.classList.toggle('form__button--urgent-active');
 }
 
 function toggleUrgentCard(button) {
   button.parentNode.parentNode.classList.toggle('article--task-cards-urgent');
+  button.parentNode.previousElementSibling.classList.toggle('article--task-cards-urgent-border')
+  button.parentNode.previousElementSibling.previousElementSibling.classList.toggle('article--task-cards-urgent-border')
 }
 
 function toggleDelete(deleteButton, todoTasks) {

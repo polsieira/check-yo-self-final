@@ -270,6 +270,10 @@ button>* {
   border: 1px solid #FFC30C;
 }
 
+.article--task-cards-urgent-border {
+  border-bottom: 1px solid #FFC30C !important;
+}
+
 .article__heading {
   border-bottom: 1px solid var(--tasks-border-grey);
   color: var(--background-dark-blue);
